@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 const links = [
   { href: "#home", label: "Home" },
   { href: "#about", label: "About" },
+  { href: "#gallery", label: "Gallery" },
   { href: "#supply", label: "Supply Chain" },
   { href: "#products", label: "Products" },
-  { href: "#gallery", label: "Gallery" },
   { href: "#contact", label: "Contact" },
 ];
 
@@ -69,8 +69,12 @@ export function Navbar() {
             aria-label="Menu"
           >
             <span className="relative block h-3 w-4">
-              <span className={`absolute inset-x-0 top-0 h-px bg-foreground transition-transform ${open ? "translate-y-1.5 rotate-45" : ""}`} />
-              <span className={`absolute inset-x-0 bottom-0 h-px bg-foreground transition-transform ${open ? "-translate-y-1 -rotate-45" : ""}`} />
+              <span
+                className={`absolute inset-x-0 top-0 h-px bg-foreground transition-transform ${open ? "translate-y-1.5 rotate-45" : ""}`}
+              />
+              <span
+                className={`absolute inset-x-0 bottom-0 h-px bg-foreground transition-transform ${open ? "-translate-y-1 -rotate-45" : ""}`}
+              />
             </span>
           </button>
         </div>

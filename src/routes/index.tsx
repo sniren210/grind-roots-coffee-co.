@@ -25,10 +25,10 @@ function Index() {
       <main>
         <Hero />
         <About />
-        <SupplyChain />
-        <Products />
-        <WhyUs />
         <Gallery />
+        <SupplyChain />
+        <WhyUs />
+        <Products />
         <Contact />
       </main>
       <Footer />

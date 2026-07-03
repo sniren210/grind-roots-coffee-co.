@@ -32,7 +32,10 @@ const products = [
 
 export function Products() {
   return (
-    <section id="products" className="section-overlap z-[15] bg-background py-48 overflow-hidden">
+    <section
+      id="products"
+      className="section-overlap z-[25] bg-background lg:pt-34 lg:pb-48 py-32 overflow-hidden"
+    >
       <div className="mx-auto max-w-7xl px-6">
         <div className="flex flex-wrap items-end justify-between gap-8 mb-16">
           <div className="max-w-2xl">

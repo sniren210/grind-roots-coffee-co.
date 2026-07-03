@@ -34,7 +34,7 @@ export function About() {
   return (
     <section
       id="about"
-      className="section-overlap scroll-stack z-[5] bg-background pt-32 pb-64 overflow-hidden"
+      className="section-overlap scroll-stack z-[5] bg-background lg:pt-48 lg:py-64 py-32 overflow-hidden lg:h-[130svh]"
     >
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">

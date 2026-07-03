@@ -19,7 +19,7 @@ const items = [
 
 export function Gallery() {
   return (
-    <section id="gallery" className="section-overlap z-[25] bg-background py-48">
+    <section id="gallery" className="section-overlap z-[10] bg-surface lg:pb-48 lg:t-32 py-32">
       <div className="mx-auto max-w-7xl px-6">
         <div className="flex flex-wrap items-end justify-between gap-8 mb-16">
           <div className="max-w-2xl">

@@ -87,7 +87,7 @@ export function SupplyChain() {
     <section
       id="supply"
       ref={sectionRef}
-      className="section-overlap relative z-[10] bg-footer text-background overflow-x-clip pb-64"
+      className="section-overlap relative z-[15] bg-background overflow-x-clip lg:pb-80"
     >
       <div
         className="absolute inset-0 opacity-[0.08]"
@@ -108,7 +108,7 @@ export function SupplyChain() {
               <h2 className="font-display text-[clamp(3rem,5vw,5.4rem)] leading-[1.02] text-balance">
                 Six stages. <em className="italic text-primary">One promise.</em>
               </h2>
-              <p className="mt-6 max-w-lg text-background/70 text-lg leading-relaxed">
+              <p className="mt-6 max-w-lg text-foreground/70 text-lg leading-relaxed">
                 The story stays fixed while each stage moves through the chain, connecting origin,
                 processing, storage, and finished coffee.
               </p>
@@ -149,7 +149,7 @@ export function SupplyChain() {
                       exit={{ opacity: 0, y: -18, filter: "blur(8px)" }}
                       transition={{ duration: 0.52, ease: [0.16, 1, 0.3, 1] }}
                     >
-                      <div className="inline-flex items-center gap-3 rounded-full border border-background/15 bg-background/10 px-4 py-2 text-xs uppercase tracking-[0.18em] text-background/70 backdrop-blur">
+                      <div className="inline-flex items-center gap-3 rounded-full border border-background/15 bg-background/10 px-4 py-2 text-xs uppercase tracking-[0.18em] text-foreground/70 backdrop-blur">
                         <span>{String(activeIndex + 1).padStart(2, "0")}</span>
                         <span className="h-1 w-1 rounded-full bg-primary" />
                         <span>{active.label}</span>
@@ -164,7 +164,7 @@ export function SupplyChain() {
                         </h3>
                       </div>
 
-                      <p className="mt-6 max-w-xl text-xl leading-relaxed text-background/75">
+                      <p className="mt-6 max-w-xl leading-relaxed text-foreground/70">
                         {active.desc}
                       </p>
 
@@ -204,9 +204,11 @@ export function SupplyChain() {
                     <div className="text-xs uppercase tracking-[0.22em] text-background/60">
                       Current stage
                     </div>
-                    <div className="mt-1 font-display text-4xl">{active.title}</div>
+                    <div className="mt-1 font-display text-4xl text-background/80">
+                      {active.title}
+                    </div>
                   </div>
-                  <div className="rounded-full border border-background/20 bg-background/10 px-4 py-2 text-sm backdrop-blur">
+                  <div className="rounded-full border border-background/20 text-background/80 bg-background/10 px-4 py-2 text-sm backdrop-blur">
                     {String(activeIndex + 1).padStart(2, "0")} /{" "}
                     {String(steps.length).padStart(2, "0")}
                   </div>
@@ -272,7 +274,7 @@ export function SupplyChain() {
                   </div>
                   <div className="p-6">
                     <h3 className="font-display text-3xl">{step.title}</h3>
-                    <p className="mt-3 text-background/70 leading-relaxed">{step.desc}</p>
+                    <p className="mt-3 text-foreground/70 leading-relaxed">{step.desc}</p>
                   </div>
                 </motion.article>
               ))}

@@ -32,7 +32,7 @@ const features = [
 
 export function WhyUs() {
   return (
-    <section className="section-overlap z-[20] bg-surface py-48 overflow-hidden">
+    <section className="section-overlap z-[20] bg-surface lg:py-48 py-32 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6">
         <div className="max-w-3xl mb-16">
           <div className="text-xs uppercase tracking-[0.25em] text-primary/80 mb-6">
