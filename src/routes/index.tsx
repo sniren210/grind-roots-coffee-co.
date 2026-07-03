@@ -1,24 +1,38 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Navbar } from "@/components/site/Navbar";
+import { Hero } from "@/components/site/Hero";
+import { About } from "@/components/site/About";
+import { SupplyChain } from "@/components/site/SupplyChain";
+import { Products } from "@/components/site/Products";
+import { WhyUs } from "@/components/site/WhyUs";
+import { Gallery } from "@/components/site/Gallery";
+import { Contact } from "@/components/site/Contact";
+import { Footer } from "@/components/site/Footer";
+import { FloatingWhatsapp } from "@/components/site/FloatingWhatsapp";
+import { ScrollProgress } from "@/components/site/ScrollProgress";
+import { SmoothScroll } from "@/components/site/SmoothScroll";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
+    <div className="relative overflow-x-clip">
+      <SmoothScroll />
+      <ScrollProgress />
+      <Navbar />
+      <main>
+        <Hero />
+        <About />
+        <SupplyChain />
+        <Products />
+        <WhyUs />
+        <Gallery />
+        <Contact />
+      </main>
+      <Footer />
+      <FloatingWhatsapp />
     </div>
   );
 }
