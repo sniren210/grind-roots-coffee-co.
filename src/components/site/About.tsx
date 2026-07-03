@@ -32,7 +32,10 @@ function Counter({ to, suffix }: { to: number; suffix: string }) {
 
 export function About() {
   return (
-    <section id="about" className="relative py-32 overflow-hidden">
+    <section
+      id="about"
+      className="section-overlap scroll-stack z-[5] bg-background pt-32 pb-64 overflow-hidden"
+    >
       <div className="mx-auto max-w-7xl px-6">
         <div className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           <motion.div
@@ -86,10 +89,9 @@ export function About() {
               transition={{ duration: 0.8, delay: 0.15 }}
               className="mt-8 text-lg text-foreground/70 leading-relaxed max-w-xl"
             >
-              We're an integrated coffee supplier rooted in the highlands of West Java.
-              We work directly with partner farmers, process at our workshop, store in
-              climate-controlled warehouses, and deliver green, roasted, and ground
-              beans—ready for your business.
+              We're an integrated coffee supplier rooted in the highlands of West Java. We work
+              directly with partner farmers, process at our workshop, store in climate-controlled
+              warehouses, and deliver green, roasted, and ground beans—ready for your business.
             </motion.p>
 
             <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-6">

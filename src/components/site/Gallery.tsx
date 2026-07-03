@@ -19,11 +19,13 @@ const items = [
 
 export function Gallery() {
   return (
-    <section id="gallery" className="relative py-32">
+    <section id="gallery" className="section-overlap z-[25] bg-background py-48">
       <div className="mx-auto max-w-7xl px-6">
         <div className="flex flex-wrap items-end justify-between gap-8 mb-16">
           <div className="max-w-2xl">
-            <div className="text-xs uppercase tracking-[0.25em] text-primary/80 mb-6">— Gallery</div>
+            <div className="text-xs uppercase tracking-[0.25em] text-primary/80 mb-6">
+              — Gallery
+            </div>
             <h2 className="font-display text-[clamp(2.25rem,5vw,4.5rem)] leading-[1.02] text-balance">
               A closer look at <em className="italic text-primary">the craft.</em>
             </h2>
@@ -51,7 +53,9 @@ export function Gallery() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-foreground/70 via-foreground/0 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
               <div className="absolute bottom-0 left-0 right-0 p-5 translate-y-3 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500">
-                <div className="text-xs uppercase tracking-widest text-background/70">Grind Roots</div>
+                <div className="text-xs uppercase tracking-widest text-background/70">
+                  Grind Roots
+                </div>
                 <div className="font-display text-xl text-background">{it.label}</div>
               </div>
             </motion.div>

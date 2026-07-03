@@ -111,6 +111,34 @@
   text-wrap: balance;
 }
 
+@utility section-overlap {
+  position: relative;
+  margin-top: -2rem;
+  border-top-left-radius: 1.75rem;
+  border-top-right-radius: 1.75rem;
+  box-shadow: 0 -32px 90px -56px color-mix(in oklab, var(--foreground) 48%, transparent);
+  scroll-margin-top: 6rem;
+  isolation: isolate;
+}
+
+@utility scroll-stack {
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .section-overlap {
+    margin-top: -6rem;
+    border-top-left-radius: 3rem;
+    border-top-right-radius: 3rem;
+  }
+
+  .scroll-stack {
+    position: sticky;
+    top: 0;
+    min-height: 100svh;
+  }
+}
+
 @utility grain {
   position: relative;
   &::after {

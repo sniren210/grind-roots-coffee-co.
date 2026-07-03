@@ -2,20 +2,42 @@ import { motion } from "framer-motion";
 import { Leaf, ShieldCheck, HandHeart, Truck, Package, Headphones } from "lucide-react";
 
 const features = [
-  { icon: Leaf, title: "Farm-to-Business Supply", desc: "Direct sourcing from West Java partner farms." },
-  { icon: ShieldCheck, title: "Premium Quality Control", desc: "Cupping, grading and defect check on every batch." },
-  { icon: HandHeart, title: "Sustainable Partnerships", desc: "Fair pricing and long-term farmer relationships." },
+  {
+    icon: Leaf,
+    title: "Farm-to-Business Supply",
+    desc: "Direct sourcing from West Java partner farms.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Premium Quality Control",
+    desc: "Cupping, grading and defect check on every batch.",
+  },
+  {
+    icon: HandHeart,
+    title: "Sustainable Partnerships",
+    desc: "Fair pricing and long-term farmer relationships.",
+  },
   { icon: Truck, title: "Reliable Distribution", desc: "On-time export and domestic logistics." },
-  { icon: Package, title: "Flexible Bulk Orders", desc: "From 60kg jute sacks to full container loads." },
-  { icon: Headphones, title: "Trusted Customer Service", desc: "Direct WhatsApp support with your account lead." },
+  {
+    icon: Package,
+    title: "Flexible Bulk Orders",
+    desc: "From 60kg jute sacks to full container loads.",
+  },
+  {
+    icon: Headphones,
+    title: "Trusted Customer Service",
+    desc: "Direct WhatsApp support with your account lead.",
+  },
 ];
 
 export function WhyUs() {
   return (
-    <section className="relative py-32 bg-surface overflow-hidden">
+    <section className="section-overlap z-[20] bg-surface py-48 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6">
         <div className="max-w-3xl mb-16">
-          <div className="text-xs uppercase tracking-[0.25em] text-primary/80 mb-6">— Why Grind Roots</div>
+          <div className="text-xs uppercase tracking-[0.25em] text-primary/80 mb-6">
+            — Why Grind Roots
+          </div>
           <h2 className="font-display text-[clamp(2.25rem,5vw,4.5rem)] leading-[1.02] text-balance">
             Built for buyers who won't <em className="italic text-primary">compromise.</em>
           </h2>
@@ -38,9 +60,9 @@ export function WhyUs() {
               </div>
               <h3 className="relative mt-6 font-display text-2xl">{f.title}</h3>
               <p className="relative mt-3 text-foreground/70">{f.desc}</p>
-              <span className="relative mt-8 inline-flex items-center gap-2 text-sm text-primary opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all">
+              {/* <span className="relative mt-8 inline-flex items-center gap-2 text-sm text-primary opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0 transition-all">
                 Learn more →
-              </span>
+              </span> */}
             </motion.div>
           ))}
         </div>

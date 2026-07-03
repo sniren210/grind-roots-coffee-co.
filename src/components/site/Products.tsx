@@ -32,11 +32,13 @@ const products = [
 
 export function Products() {
   return (
-    <section id="products" className="relative py-32 overflow-hidden">
+    <section id="products" className="section-overlap z-[15] bg-background py-48 overflow-hidden">
       <div className="mx-auto max-w-7xl px-6">
         <div className="flex flex-wrap items-end justify-between gap-8 mb-16">
           <div className="max-w-2xl">
-            <div className="text-xs uppercase tracking-[0.25em] text-primary/80 mb-6">— Products</div>
+            <div className="text-xs uppercase tracking-[0.25em] text-primary/80 mb-6">
+              — Products
+            </div>
             <h2 className="font-display text-[clamp(2.25rem,5vw,4.5rem)] leading-[1.02] text-balance">
               Three forms. One <em className="italic text-primary">promise.</em>
             </h2>

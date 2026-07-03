@@ -29,7 +29,7 @@ export function Hero() {
   }, [mx, my]);
 
   return (
-    <section id="home" ref={ref} className="relative min-h-[100svh] overflow-hidden pt-32 pb-24">
+    <section id="home" ref={ref} className="relative min-h-[150svh] overflow-hidden pt-32 pb-24">
       {/* Floating blurred circles */}
       <motion.div
         style={{ x: sx, y: sy }}
@@ -44,7 +44,10 @@ export function Hero() {
       {/* Coffee bean particles */}
       <BeanParticles />
 
-      <motion.div style={{ y: textY, opacity: fade }} className="relative z-10 mx-auto max-w-7xl px-6">
+      <motion.div
+        style={{ y: textY, opacity: fade }}
+        className="relative z-10 mx-auto max-w-7xl px-6"
+      >
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -76,8 +79,8 @@ export function Hero() {
           transition={{ duration: 0.8, delay: 0.9 }}
           className="mt-8 max-w-xl text-lg text-foreground/70 leading-relaxed"
         >
-          Grind Roots provides Green Bean, Roasted Bean, and Grind Bean through a
-          fully integrated supply chain—from farm to premium coffee.
+          Grind Roots provides Green Bean, Roasted Bean, and Grind Bean through a fully integrated
+          supply chain—from farm to premium coffee.
         </motion.p>
 
         <motion.div
@@ -114,7 +117,7 @@ export function Hero() {
             alt="Coffee plantation in West Java"
             width={1920}
             height={1280}
-            style={{ y: imgY, scale: imgScale }}
+            style={{ scale: imgScale }}
             className="h-[52vh] min-h-[380px] w-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent" />
@@ -147,7 +150,7 @@ export function Hero() {
 }
 
 function BeanParticles() {
-  const beans = Array.from({ length: 14 });
+  const beans = Array.from({ length: 32 });
   return (
     <div className="pointer-events-none absolute inset-0 overflow-hidden">
       {beans.map((_, i) => {
@@ -162,9 +165,9 @@ function BeanParticles() {
             animate={{ opacity: [0, 0.35, 0], y: [0, -60, -120] }}
             transition={{ duration: 8 + (i % 4), delay, repeat: Infinity, ease: "easeInOut" }}
             style={{ left: `${left}%`, top: `${top}%`, width: size, height: size * 1.4 }}
-            className="absolute rounded-full bg-coffee/40"
+            className="absolute rounded-full bg-amber-800"
           >
-            <span className="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-background/40" />
+            <span className="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-background" />
           </motion.span>
         );
       })}

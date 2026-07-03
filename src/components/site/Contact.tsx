@@ -5,25 +5,40 @@ import { useState } from "react";
 export function Contact() {
   const [sent, setSent] = useState(false);
   return (
-    <section id="contact" className="relative py-32 bg-surface overflow-hidden">
+    <section
+      id="contact"
+      className="section-overlap relative z-[30] bg-surface py-32 overflow-hidden"
+    >
       <div className="absolute -top-20 right-10 h-80 w-80 rounded-full bg-primary/15 blur-3xl" />
       <div className="absolute bottom-0 left-0 h-80 w-80 rounded-full bg-gold/25 blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl px-6">
         <div className="grid lg:grid-cols-12 gap-12">
           <div className="lg:col-span-5">
-            <div className="text-xs uppercase tracking-[0.25em] text-primary/80 mb-6">— Contact</div>
+            <div className="text-xs uppercase tracking-[0.25em] text-primary/80 mb-6">
+              — Contact
+            </div>
             <h2 className="font-display text-[clamp(2.25rem,5vw,4.5rem)] leading-[1.02] text-balance">
               Let's talk about your <em className="italic text-primary">next order.</em>
             </h2>
             <p className="mt-6 text-foreground/70 max-w-md">
-              Roasters, cafés, distributors and private-label brands—reach out for
-              samples, MOQ and pricing.
+              Roasters, cafés, distributors and private-label brands—reach out for samples, MOQ and
+              pricing.
             </p>
 
-            <div className="mt-10 space-y-3">
-              <ContactRow icon={MessageCircle} label="WhatsApp" value="+62 812 3456 7890" href="https://wa.me/6281234567890" />
-              <ContactRow icon={Mail} label="Email" value="hello@grindroots.co" href="mailto:hello@grindroots.co" />
+            <div className="mt-10 flex flex-col gap-4">
+              <ContactRow
+                icon={MessageCircle}
+                label="WhatsApp"
+                value="+62 812 3456 7890"
+                href="https://wa.me/6281234567890"
+              />
+              <ContactRow
+                icon={Mail}
+                label="Email"
+                value="hello@grindroots.co"
+                href="mailto:hello@grindroots.co"
+              />
               <ContactRow icon={MapPin} label="Address" value="Bandung, West Java · Indonesia" />
             </div>
 
@@ -58,10 +73,16 @@ export function Contact() {
               <Field label="Phone / WhatsApp" name="phone" />
             </div>
             <div className="mt-4">
-              <Field label="Product interest" name="product" placeholder="Green / Roasted / Grind, volume, origin…" />
+              <Field
+                label="Product interest"
+                name="product"
+                placeholder="Green / Roasted / Grind, volume, origin…"
+              />
             </div>
             <div className="mt-4">
-              <label className="block text-xs uppercase tracking-widest text-foreground/60 mb-2">Message</label>
+              <label className="block text-xs uppercase tracking-widest text-foreground/60 mb-2">
+                Message
+              </label>
               <textarea
                 rows={4}
                 required
@@ -82,7 +103,17 @@ export function Contact() {
   );
 }
 
-function ContactRow({ icon: Icon, label, value, href }: { icon: any; label: string; value: string; href?: string }) {
+function ContactRow({
+  icon: Icon,
+  label,
+  value,
+  href,
+}: {
+  icon: any;
+  label: string;
+  value: string;
+  href?: string;
+}) {
   const inner = (
     <div className="group flex items-center gap-4 rounded-2xl bg-background border border-border p-4 hover:border-primary/40 transition-colors">
       <div className="grid h-11 w-11 place-items-center rounded-xl bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors">
@@ -92,16 +123,36 @@ function ContactRow({ icon: Icon, label, value, href }: { icon: any; label: stri
         <div className="text-xs uppercase tracking-widest text-foreground/50">{label}</div>
         <div className="text-foreground">{value}</div>
       </div>
-      {href && <span className="text-foreground/40 group-hover:text-primary transition-colors">→</span>}
+      {href && (
+        <span className="text-foreground/40 group-hover:text-primary transition-colors">→</span>
+      )}
     </div>
   );
-  return href ? <a href={href} target="_blank" rel="noreferrer">{inner}</a> : inner;
+  return href ? (
+    <a href={href} target="_blank" rel="noreferrer">
+      {inner}
+    </a>
+  ) : (
+    inner
+  );
 }
 
-function Field({ label, name, type = "text", placeholder }: { label: string; name: string; type?: string; placeholder?: string }) {
+function Field({
+  label,
+  name,
+  type = "text",
+  placeholder,
+}: {
+  label: string;
+  name: string;
+  type?: string;
+  placeholder?: string;
+}) {
   return (
     <div>
-      <label className="block text-xs uppercase tracking-widest text-foreground/60 mb-2">{label}</label>
+      <label className="block text-xs uppercase tracking-widest text-foreground/60 mb-2">
+        {label}
+      </label>
       <input
         name={name}
         type={type}
