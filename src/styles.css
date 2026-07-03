@@ -29,6 +29,7 @@
   --color-accent-foreground: var(--accent-foreground);
   --color-coffee: var(--coffee);
   --color-gold: var(--gold);
+  --color-footer: var(--footer);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
@@ -45,33 +46,34 @@
 :root {
   --radius: 1.25rem;
 
-  /* Palette (converted to oklch approximations) */
-  --background: oklch(0.965 0.014 85);           /* #F7F4EE */
-  --surface: oklch(0.935 0.020 82);              /* #EFE8DD */
+  /* Palette — Royal Gold / Champagne / Forest Green */
+  --background: oklch(0.972 0.012 85);           /* #FAF8F3 */
+  --surface: oklch(1 0 0);                       /* #FFFFFF */
   --foreground: oklch(0.245 0.005 60);           /* #2B2B2B */
-  --card: oklch(0.985 0.010 85);
+  --card: oklch(1 0 0);
   --card-foreground: oklch(0.245 0.005 60);
-  --popover: oklch(0.985 0.010 85);
+  --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.245 0.005 60);
 
-  --primary: oklch(0.435 0.055 145);             /* #48644A */
-  --primary-foreground: oklch(0.97 0.014 85);
-  --secondary: oklch(0.585 0.045 140);           /* #6F8667 */
-  --secondary-foreground: oklch(0.98 0.010 85);
+  --primary: oklch(0.735 0.105 82);              /* #C9A35B Royal Gold */
+  --primary-foreground: oklch(0.18 0.005 60);
+  --secondary: oklch(0.875 0.070 88);            /* #E5D2A1 Champagne Gold */
+  --secondary-foreground: oklch(0.245 0.005 60);
 
-  --coffee: oklch(0.505 0.075 55);               /* #8C6848 */
-  --gold: oklch(0.755 0.115 75);                 /* #D3A766 */
+  --coffee: oklch(0.505 0.075 55);
+  --gold: oklch(0.735 0.105 82);                 /* alias -> Royal Gold */
 
-  --muted: oklch(0.925 0.014 85);
-  --muted-foreground: oklch(0.45 0.020 70);
-  --accent: oklch(0.755 0.115 75);
-  --accent-foreground: oklch(0.245 0.005 60);
+  --muted: oklch(0.945 0.014 85);
+  --muted-foreground: oklch(0.515 0.008 70);     /* #6B6B6B */
+  --accent: oklch(0.415 0.045 155);              /* #3F5E4B Forest Green */
+  --accent-foreground: oklch(0.98 0.010 85);
 
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247);
-  --border: oklch(0.865 0.018 82);               /* #DDD6CC */
-  --input: oklch(0.865 0.018 82);
-  --ring: oklch(0.435 0.055 145);
+  --border: oklch(0.905 0.014 85);               /* #E8E1D5 */
+  --input: oklch(0.905 0.014 85);
+  --ring: oklch(0.735 0.105 82);
+  --footer: oklch(0.265 0.003 60);               /* #252525 */
 }
 
 @layer base {
