@@ -46,34 +46,34 @@
 :root {
   --radius: 1.25rem;
 
-  /* Palette — Royal Gold / Champagne / Forest Green */
-  --background: oklch(0.972 0.012 85);           /* #FAF8F3 */
-  --surface: oklch(1 0 0);                       /* #FFFFFF */
-  --foreground: oklch(0.245 0.005 60);           /* #2B2B2B */
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.245 0.005 60);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.245 0.005 60);
+  /* Palette — Grind Roots Brown / Forest Green / Taupe / Beige */
+  --background: #f5f5dc; /* Neutral */
+  --surface: #fffdf0;
+  --foreground: #3e2723; /* Primary */
+  --card: #fffdf0;
+  --card-foreground: #3e2723;
+  --popover: #fffdf0;
+  --popover-foreground: #3e2723;
 
-  --primary: oklch(0.735 0.105 82);              /* #C9A35B Royal Gold */
-  --primary-foreground: oklch(0.18 0.005 60);
-  --secondary: oklch(0.875 0.070 88);            /* #E5D2A1 Champagne Gold */
-  --secondary-foreground: oklch(0.245 0.005 60);
+  --primary: #3e2723; /* Primary */
+  --primary-foreground: #f5f5dc;
+  --secondary: #1b5e20; /* Secondary */
+  --secondary-foreground: #f5f5dc;
 
-  --coffee: oklch(0.505 0.075 55);
-  --gold: oklch(0.735 0.105 82);                 /* alias -> Royal Gold */
+  --coffee: #3e2723; /* alias -> Primary */
+  --gold: #8d6e63; /* alias -> Tertiary */
 
-  --muted: oklch(0.945 0.014 85);
-  --muted-foreground: oklch(0.515 0.008 70);     /* #6B6B6B */
-  --accent: oklch(0.415 0.045 155);              /* #3F5E4B Forest Green */
-  --accent-foreground: oklch(0.98 0.010 85);
+  --muted: #e9e4c8;
+  --muted-foreground: #6d5a52;
+  --accent: #8d6e63; /* Tertiary */
+  --accent-foreground: #f5f5dc;
 
   --destructive: oklch(0.577 0.245 27.325);
   --destructive-foreground: oklch(0.984 0.003 247);
-  --border: oklch(0.905 0.014 85);               /* #E8E1D5 */
-  --input: oklch(0.905 0.014 85);
-  --ring: oklch(0.735 0.105 82);
-  --footer: oklch(0.265 0.003 60);               /* #252525 */
+  --border: #d8ceaa;
+  --input: #d8ceaa;
+  --ring: #8d6e63;
+  --footer: #2a1a17;
 }
 
 @layer base {
@@ -90,7 +90,10 @@
     -webkit-font-smoothing: antialiased;
     font-feature-settings: "ss01", "cv11";
   }
-  h1, h2, h3, h4 {
+  h1,
+  h2,
+  h3,
+  h4 {
     font-family: var(--font-display);
     font-weight: 400;
     letter-spacing: -0.02em;
@@ -103,6 +106,7 @@
 
 @utility glass {
   background: color-mix(in oklab, var(--background) 55%, transparent);
+  -webkit-backdrop-filter: blur(20px) saturate(140%);
   backdrop-filter: blur(20px) saturate(140%);
   border: 1px solid color-mix(in oklab, var(--foreground) 8%, transparent);
 }
@@ -156,16 +160,32 @@
 /* Custom marquee scrollbar hidden */
 @utility no-scrollbar {
   scrollbar-width: none;
-  &::-webkit-scrollbar { display: none; }
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @keyframes float-slow {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(30px, -40px) scale(1.05); }
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(30px, -40px) scale(1.05);
+  }
 }
 @keyframes float-slower {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-40px, 30px) scale(0.95); }
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    transform: translate(-40px, 30px) scale(0.95);
+  }
 }
-.animate-float-slow { animation: float-slow 14s ease-in-out infinite; }
-.animate-float-slower { animation: float-slower 18s ease-in-out infinite; }
+.animate-float-slow {
+  animation: float-slow 14s ease-in-out infinite;
+}
+.animate-float-slower {
+  animation: float-slower 18s ease-in-out infinite;
+}

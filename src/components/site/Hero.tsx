@@ -84,7 +84,7 @@ export function Hero() {
       />
       <motion.div
         style={{ x: useTransform(sx, (v) => -v), y: useTransform(sy, (v) => -v) }}
-        className="absolute top-1/3 -right-32 h-[460px] w-[460px] rounded-full bg-gold/30 blur-[120px] animate-float-slower"
+        className="absolute top-1/3 -right-32 h-[460px] w-[460px] rounded-full bg-accent/30 blur-[120px] animate-float-slower"
       />
       <div className="absolute bottom-0 left-1/3 h-[380px] w-[380px] rounded-full bg-coffee/20 blur-[140px]" />
 
@@ -226,7 +226,7 @@ function BeanParticles() {
             animate={{ opacity: [0, 0.35, 0], y: [0, 60, 120] }}
             transition={{ duration: 8 + (i % 4), delay, repeat: Infinity, ease: "easeInOut" }}
             style={{ left: `${left}%`, top: `${top}%`, width: size, height: size * 1.4 }}
-            className="absolute rounded-full bg-amber-950 rotate-45"
+            className="absolute rounded-full bg-primary rotate-45"
           >
             <span className="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-background" />
           </motion.span>

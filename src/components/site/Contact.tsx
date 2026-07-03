@@ -10,7 +10,7 @@ export function Contact() {
       className="section-overlap relative z-[30] bg-surface py-32 overflow-hidden"
     >
       <div className="absolute -top-20 right-10 h-80 w-80 rounded-full bg-primary/15 blur-3xl" />
-      <div className="absolute bottom-0 left-0 h-80 w-80 rounded-full bg-gold/25 blur-3xl" />
+      <div className="absolute bottom-0 left-0 h-80 w-80 rounded-full bg-accent/25 blur-3xl" />
 
       <div className="relative mx-auto max-w-7xl px-6">
         <div className="grid lg:grid-cols-12 gap-12">

@@ -56,7 +56,7 @@ export function About() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/30 to-transparent mix-blend-multiply" />
             </div>
-            <div className="absolute -bottom-6 -right-6 h-32 w-32 rounded-full bg-gold/60 blur-2xl" />
+            <div className="absolute -bottom-6 -right-6 h-32 w-32 rounded-full bg-accent/60 blur-2xl" />
             <div className="absolute -top-8 -left-6 glass rounded-2xl p-4 w-44">
               <div className="text-xs uppercase tracking-widest text-foreground/60">Est.</div>
               <div className="font-display text-3xl">2018</div>
