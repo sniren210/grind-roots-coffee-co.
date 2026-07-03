@@ -6,7 +6,7 @@ import {
   useTransform,
 } from "framer-motion";
 import { Coffee, Flame, CircleDot, Sprout, Warehouse, Wrench } from "lucide-react";
-import { useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import plantation from "@/assets/hero-plantation.jpg";
 import workshop from "@/assets/gal-workshop.jpg";
 import warehouse from "@/assets/gal-warehouse.jpg";
@@ -59,9 +59,14 @@ const steps = [
   },
 ];
 
+const clampStageIndex = (index: number) => Math.min(steps.length - 1, Math.max(0, index));
+
 export function SupplyChain() {
   const sectionRef = useRef<HTMLElement>(null);
   const mobileRef = useRef<HTMLDivElement>(null);
+  const activeIndexRef = useRef(0);
+  const wheelLockRef = useRef(false);
+  const isProgrammaticScrollRef = useRef(false);
   const [activeIndex, setActiveIndex] = useState(0);
 
   const { scrollYProgress } = useScroll({
@@ -75,10 +80,81 @@ export function SupplyChain() {
   const railScale = useTransform(scrollYProgress, [0.05, 0.95], [0, 1]);
   const mobileRailScale = useTransform(mobileProgress, [0.05, 0.9], [0, 1]);
 
+  const setStageIndex = useCallback((index: number) => {
+    const targetIndex = clampStageIndex(index);
+
+    activeIndexRef.current = targetIndex;
+    setActiveIndex(targetIndex);
+  }, []);
+
+  const scrollToStage = useCallback(
+    (index: number) => {
+      const section = sectionRef.current;
+
+      if (!section) return;
+
+      const targetIndex = clampStageIndex(index);
+      const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+      const maxScrollDistance = section.offsetHeight - window.innerHeight;
+      const stepDistance = maxScrollDistance / Math.max(steps.length - 1, 1);
+
+      isProgrammaticScrollRef.current = true;
+      setStageIndex(targetIndex);
+
+      window.scrollTo({
+        top: sectionTop + stepDistance * targetIndex,
+        behavior: "smooth",
+      });
+
+      window.setTimeout(() => {
+        isProgrammaticScrollRef.current = false;
+      }, 800);
+    },
+    [setStageIndex],
+  );
+
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    const nextIndex = Math.min(steps.length - 1, Math.max(0, Math.floor(latest * steps.length)));
-    setActiveIndex(nextIndex);
+    setStageIndex(clampStageIndex(Math.round(latest * (steps.length - 1))));
   });
+
+  useEffect(() => {
+    const handleWheel = (event: WheelEvent) => {
+      const section = sectionRef.current;
+
+      if (!section || window.innerWidth < 768 || Math.abs(event.deltaY) < 8) return;
+
+      const sectionTop = section.getBoundingClientRect().top + window.scrollY;
+      const sectionBottom = sectionTop + section.offsetHeight - window.innerHeight;
+      const currentY = window.scrollY;
+      const isInsideSupplyChain = currentY >= sectionTop - 4 && currentY <= sectionBottom + 4;
+
+      if (!isInsideSupplyChain) return;
+
+      const direction = event.deltaY > 0 ? 1 : -1;
+      const currentIndex = activeIndexRef.current;
+      const isLeavingBeforeFirst = currentIndex === 0 && direction < 0;
+      const isLeavingAfterLast = currentIndex === steps.length - 1 && direction > 0;
+
+      if (isLeavingBeforeFirst || isLeavingAfterLast) return;
+
+      event.preventDefault();
+
+      if (wheelLockRef.current || isProgrammaticScrollRef.current) return;
+
+      wheelLockRef.current = true;
+      scrollToStage(currentIndex + direction);
+
+      window.setTimeout(() => {
+        wheelLockRef.current = false;
+      }, 850);
+    };
+
+    window.addEventListener("wheel", handleWheel, { passive: false });
+
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+    };
+  }, [scrollToStage]);
 
   const active = steps[activeIndex];
   const ActiveIcon = active.icon;
@@ -118,23 +194,27 @@ export function SupplyChain() {
                   <div className="absolute inset-y-0 w-px bg-background/15" aria-hidden="true" />
                   <motion.div
                     style={{ scaleY: railScale }}
-                    className="absolute inset-y-0 w-px origin-top bg-gradient-to-b from-primary via-secondary to-accent"
+                    className="absolute inset-y-0 w-px origin-top bg-gradient-to-b from-primary via-secondary/50 to-accent"
                     aria-hidden="true"
                   />
                   <div className="relative z-10 flex flex-col justify-between">
                     {steps.map((step, index) => {
                       const isActive = index === activeIndex;
                       return (
-                        <span
+                        <button
                           key={step.title}
+                          type="button"
+                          onClick={() => scrollToStage(index)}
+                          aria-label={`Scroll to ${step.title} supply-chain stage`}
+                          aria-current={isActive ? "step" : undefined}
                           className={`grid h-11 w-11 place-items-center rounded-full border transition-all duration-500 ${
                             isActive
                               ? "border-primary bg-primary text-primary-foreground shadow-soft"
-                              : "border-background/20 bg-footer text-background/45"
+                              : "border-background/20 bg-footer text-background/45 hover:border-primary/70 hover:text-background/80"
                           }`}
                         >
                           <step.icon className="h-4 w-4" />
-                        </span>
+                        </button>
                       );
                     })}
                   </div>
@@ -172,7 +252,7 @@ export function SupplyChain() {
                         href="#contact"
                         className="group relative mt-10 inline-flex items-center gap-3 overflow-hidden rounded-full bg-primary px-7 py-4 text-primary-foreground transition-transform hover:scale-[1.02]"
                       >
-                        <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-primary via-secondary to-primary transition-transform duration-700 group-hover:translate-x-0" />
+                        <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-primary via-secondary/50 to-primary transition-transform duration-700 group-hover:translate-x-0" />
                         <span className="relative z-10">Request Quote</span>
                         <span className="relative z-10 transition-transform group-hover:translate-x-1">
                           →
@@ -241,7 +321,7 @@ export function SupplyChain() {
             <div className="absolute left-4 top-0 bottom-0 w-px bg-background/15" />
             <motion.div
               style={{ scaleY: mobileRailScale }}
-              className="absolute left-4 top-0 bottom-0 w-px origin-top bg-gradient-to-b from-primary via-secondary to-accent"
+              className="absolute left-4 top-0 bottom-0 w-px origin-top bg-gradient-to-b from-primary via-secondary/50 to-accent"
             />
             <div className="space-y-8">
               {steps.map((step, index) => (

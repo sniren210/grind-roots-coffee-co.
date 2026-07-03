@@ -151,7 +151,7 @@ export function Hero() {
               href="#products"
               className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-primary px-7 py-4 text-primary-foreground transition-transform hover:scale-[1.02]"
             >
-              <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-primary via-secondary to-primary transition-transform duration-700 group-hover:translate-x-0" />
+              <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-primary via-secondary/50 to-primary transition-transform duration-700 group-hover:translate-x-0" />
               <span className="relative z-10">Explore Products</span>
               <span className="relative z-10 transition-transform group-hover:translate-x-1">
                 →

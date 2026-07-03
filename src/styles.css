@@ -76,6 +76,17 @@
   --footer: #2a1a17;
 }
 
+@media (min-width: 1200px) {
+  body {
+    zoom: 80%;
+  }
+}
+@media (min-width: 1400px) {
+  body {
+    zoom: 100%;
+  }
+}
+
 @layer base {
   * {
     border-color: var(--color-border);
