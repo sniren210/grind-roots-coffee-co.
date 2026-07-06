@@ -1,9 +1,18 @@
 import { motion } from "framer-motion";
-import { MessageCircle, Mail, MapPin } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { useState } from "react";
+import { siteContent } from "@/content";
+import { getIcon } from "@/content/content-assets";
+import { renderEmphasisHeading } from "@/content/render-heading";
+
+const content = siteContent.contact;
+const contactRows = content.rows.map((row) => ({ ...row, Icon: getIcon(row.icon) }));
 
 export function Contact() {
   const [sent, setSent] = useState(false);
+  const firstFields = content.form.fields.slice(0, 4);
+  const remainingFields = content.form.fields.slice(4);
+
   return (
     <section
       id="contact"
@@ -16,36 +25,29 @@ export function Contact() {
         <div className="grid lg:grid-cols-12 gap-12">
           <div className="lg:col-span-5">
             <div className="text-xs uppercase tracking-[0.25em] text-primary/80 mb-6">
-              — Contact
+              {content.eyebrow}
             </div>
             <h2 className="font-display text-[clamp(2.25rem,5vw,4.5rem)] leading-[1.02] text-balance">
-              Let's talk about your <em className="italic text-primary">next order.</em>
+              {renderEmphasisHeading(content.heading)}
             </h2>
-            <p className="mt-6 text-foreground/70 max-w-md">
-              Roasters, cafés, distributors and private-label brands—reach out for samples, MOQ and
-              pricing.
-            </p>
+            <p className="mt-6 text-foreground/70 max-w-md">{content.description}</p>
 
             <div className="mt-10 flex flex-col gap-4">
-              <ContactRow
-                icon={MessageCircle}
-                label="WhatsApp"
-                value="+62 812 3456 7890"
-                href="https://wa.me/6281234567890"
-              />
-              <ContactRow
-                icon={Mail}
-                label="Email"
-                value="hello@grindroots.co"
-                href="mailto:hello@grindroots.co"
-              />
-              <ContactRow icon={MapPin} label="Address" value="Bandung, West Java · Indonesia" />
+              {contactRows.map((row) => (
+                <ContactRow
+                  key={row.label}
+                  icon={row.Icon}
+                  label={row.label}
+                  value={row.value}
+                  href={row.href}
+                />
+              ))}
             </div>
 
             <div className="mt-6 rounded-3xl overflow-hidden border border-border h-56">
               <iframe
-                title="Grind Roots location"
-                src="https://www.google.com/maps?q=Bandung%20West%20Java&output=embed"
+                title={content.map.title}
+                src={content.map.src}
                 className="h-full w-full grayscale-[30%]"
                 loading="lazy"
               />
@@ -63,25 +65,33 @@ export function Contact() {
             }}
             className="lg:col-span-7 rounded-3xl bg-background border border-border p-8 md:p-10"
           >
-            <h3 className="font-display text-3xl">Request a quote</h3>
-            <p className="mt-2 text-foreground/60">We reply within one business day.</p>
+            <h3 className="font-display text-3xl">{content.form.title}</h3>
+            <p className="mt-2 text-foreground/60">{content.form.subtitle}</p>
 
             <div className="mt-8 grid md:grid-cols-2 gap-4">
-              <Field label="Full name" name="name" />
-              <Field label="Company" name="company" />
-              <Field label="Email" name="email" type="email" />
-              <Field label="Phone / WhatsApp" name="phone" />
+              {firstFields.map((field) => (
+                <Field
+                  key={field.name}
+                  label={field.label}
+                  name={field.name}
+                  type={field.type}
+                  placeholder={field.placeholder}
+                />
+              ))}
             </div>
-            <div className="mt-4">
-              <Field
-                label="Product interest"
-                name="product"
-                placeholder="Green / Roasted / Grind, volume, origin…"
-              />
-            </div>
+            {remainingFields.map((field) => (
+              <div key={field.name} className="mt-4">
+                <Field
+                  label={field.label}
+                  name={field.name}
+                  type={field.type}
+                  placeholder={field.placeholder}
+                />
+              </div>
+            ))}
             <div className="mt-4">
               <label className="block text-xs uppercase tracking-widest text-foreground/60 mb-2">
-                Message
+                {content.form.messageLabel}
               </label>
               <textarea
                 rows={4}
@@ -93,7 +103,7 @@ export function Contact() {
               type="submit"
               className="mt-8 group inline-flex items-center gap-3 rounded-full bg-primary text-primary-foreground px-8 py-4 hover:bg-primary/90 transition-all"
             >
-              {sent ? "Message sent ✓" : "Send request"}
+              {sent ? content.form.successLabel : content.form.submitLabel}
               <span className="transition-transform group-hover:translate-x-1">→</span>
             </button>
           </motion.form>
@@ -109,7 +119,7 @@ function ContactRow({
   value,
   href,
 }: {
-  icon: any;
+  icon: LucideIcon;
   label: string;
   value: string;
   href?: string;

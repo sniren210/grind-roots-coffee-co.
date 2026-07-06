@@ -1,237 +1,238 @@
-import { motion, useMotionValue, useSpring, useTransform, useScroll } from "framer-motion";
+import {
+  AnimatePresence,
+  animate,
+  motion,
+  useInView,
+  useMotionValue,
+  useScroll,
+  useTransform,
+} from "framer-motion";
+import { Pause, Play, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import heroImg from "@/assets/hero-plantation.jpg";
+import { siteContent } from "@/content";
+import { getImage } from "@/content/content-assets";
+import LiquidEther from "./LiquidEther";
 
-const typedPhrases = ["Rooted in Quality.", "Sourced from West Java.", "Crafted from Farm to Cup."];
+const content = siteContent.hero;
+const aboutContent = siteContent.about;
+const heroImg = getImage(content.backgroundImage);
+const storyWords = ["Origin", "Processing", "Warehousing", "Roasting", "Fulfillment"];
+const kpis = aboutContent.stats.slice(0, 4);
+
+const container = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.14, delayChildren: 0.18 } },
+};
+
+const reveal = {
+  hidden: { opacity: 0, y: 36, filter: "blur(10px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.85, ease: [0.16, 1, 0.3, 1] },
+  },
+};
+
+function Counter({ to, suffix }: { to: number; suffix: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const value = useMotionValue(0);
+  const rounded = useTransform(value, (latest) => Math.floor(latest).toString());
+
+  useEffect(() => {
+    if (!inView) return;
+    const controls = animate(value, to, { duration: 1.9, ease: [0.16, 1, 0.3, 1] });
+    return controls.stop;
+  }, [inView, to, value]);
+
+  return (
+    <span ref={ref} className="tabular-nums">
+      <motion.span>{rounded}</motion.span>
+      {suffix}
+    </span>
+  );
+}
+
+function RotatingWord() {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = window.setInterval(() => {
+      setIndex((current) => (current + 1) % storyWords.length);
+    }, 2400);
+
+    return () => window.clearInterval(interval);
+  }, []);
+
+  return (
+    <span className="relative inline-grid min-w-[8.8ch] overflow-hidden align-bottom text-secondary-foreground md:min-w-[10.5ch]">
+      <AnimatePresence mode="wait">
+        <motion.span
+          key={storyWords[index]}
+          initial={{ y: "105%", opacity: 0, filter: "blur(10px)" }}
+          animate={{ y: "0%", opacity: 1, filter: "blur(0px)" }}
+          exit={{ y: "-105%", opacity: 0, filter: "blur(10px)" }}
+          transition={{ duration: 0.62, ease: [0.16, 1, 0.3, 1] }}
+          className="col-start-1 row-start-1"
+        >
+          {storyWords[index]}.
+        </motion.span>
+      </AnimatePresence>
+    </span>
+  );
+}
+
+function HeroAtmosphere() {
+  return (
+    <div className="pointer-events-none absolute inset-0 overflow-hidden" aria-hidden="true">
+      <div className="absolute inset-0 hero-grid opacity-35" />
+      <div className="absolute inset-0 hero-light-sweep opacity-40" />
+      <svg className="absolute inset-0 h-full w-full opacity-40" viewBox="0 0 1200 800" fill="none">
+        <motion.path
+          d="M90 580 C260 390 390 675 540 430 S835 250 1110 355"
+          stroke="url(#hero-route)"
+          strokeWidth="1.5"
+          strokeDasharray="8 12"
+          initial={{ pathLength: 0, opacity: 0 }}
+          animate={{ pathLength: 1, opacity: 1 }}
+          transition={{ duration: 2.6, delay: 1.1, ease: "easeInOut" }}
+        />
+        <defs>
+          <linearGradient id="hero-route" x1="90" y1="580" x2="1110" y2="355">
+            <stop stopColor="var(--background)" stopOpacity="0" />
+            <stop offset="0.45" stopColor="var(--background)" stopOpacity="0.7" />
+            <stop offset="1" stopColor="var(--secondary)" stopOpacity="0.75" />
+          </linearGradient>
+        </defs>
+      </svg>
+      {Array.from({ length: 18 }).map((_, i) => (
+        <motion.span
+          key={i}
+          className="absolute h-1.5 w-1.5 rounded-full bg-background/55 shadow-[0_0_24px_rgba(245,245,220,0.55)]"
+          style={{ left: `${8 + ((i * 17) % 84)}%`, top: `${12 + ((i * 29) % 72)}%` }}
+          animate={{ y: [0, -18, 0], opacity: [0.25, 0.8, 0.25], scale: [1, 1.65, 1] }}
+          transition={{
+            duration: 5 + (i % 5),
+            repeat: Infinity,
+            delay: i * 0.18,
+            ease: "easeInOut",
+          }}
+        />
+      ))}
+    </div>
+  );
+}
 
 export function Hero() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [phraseIndex, setPhraseIndex] = useState(0);
-  const [typedText, setTypedText] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
-  const mx = useMotionValue(0);
-  const my = useMotionValue(0);
-  const sx = useSpring(mx, { stiffness: 60, damping: 20 });
-  const sy = useSpring(my, { stiffness: 60, damping: 20 });
-
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
-  const bgY = useTransform(scrollYProgress, [0, 1], [0, 90]);
-  const textY = useTransform(scrollYProgress, [0, 1], [0, -80]);
-  const fade = useTransform(scrollYProgress, [0, 0.7], [1, 0]);
+  const sectionRef = useRef<HTMLElement>(null);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start start", "end start"],
+  });
+  const bgY = useTransform(scrollYProgress, [0, 1], [0, 120]);
+  const bgScale = useTransform(scrollYProgress, [0, 1], [1.08, 1.22]);
+  const textY = useTransform(scrollYProgress, [0, 1], [0, -70]);
+  const textOpacity = useTransform(scrollYProgress, [0, 0.72], [1, 0]);
 
   useEffect(() => {
-    const onMove = (e: MouseEvent) => {
-      const x = (e.clientX / window.innerWidth - 0.5) * 40;
-      const y = (e.clientY / window.innerHeight - 0.5) * 40;
-      mx.set(x);
-      my.set(y);
+    document.body.style.overflow = isProfileOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
     };
-    window.addEventListener("mousemove", onMove);
-    return () => window.removeEventListener("mousemove", onMove);
-  }, [mx, my]);
-
-  useEffect(() => {
-    const currentPhrase = typedPhrases[phraseIndex];
-    const isComplete = typedText === currentPhrase;
-    const isEmpty = typedText === "";
-    const delay = isComplete ? 1400 : isDeleting ? 42 : 78;
-
-    const timeout = window.setTimeout(() => {
-      if (!isDeleting && isComplete) {
-        setIsDeleting(true);
-        return;
-      }
-
-      if (isDeleting && isEmpty) {
-        setIsDeleting(false);
-        setPhraseIndex((current) => (current + 1) % typedPhrases.length);
-        return;
-      }
-
-      setTypedText((current) =>
-        isDeleting
-          ? currentPhrase.slice(0, current.length - 1)
-          : currentPhrase.slice(0, current.length + 1),
-      );
-    }, delay);
-
-    return () => window.clearTimeout(timeout);
-  }, [isDeleting, phraseIndex, typedText]);
+  }, [isProfileOpen]);
 
   return (
     <section
       id="home"
-      ref={ref}
-      className="relative min-h-svh overflow-hidden pt-32 pb-48 lg:pt-36 z-30"
+      ref={sectionRef}
+      className="relative isolate min-h-[120svh] overflow-hidden bg-footer text-background"
     >
-      {/* Blurred hero image background */}
       <motion.div
         aria-hidden="true"
-        style={{ y: bgY }}
-        className="absolute -inset-12 overflow-hidden"
+        style={{ y: bgY, scale: bgScale }}
+        className="absolute -inset-10"
       >
-        <img src={heroImg} alt="" className="h-full w-full scale-125 object-cover opacity-100 " />
-        {/* <div className="absolute inset-0 bg-background/45" /> */}
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/40 to-background/10" />
-        {/* <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-background/35" /> */}
-        {/* <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_35%,transparent_0%,hsl(var(--background)/0.36)_45%,hsl(var(--background)/0.82)_100%)]" /> */}
-      </motion.div>
-
-      {/* Floating blurred circles */}
-      <motion.div
-        style={{ x: sx, y: sy }}
-        className="absolute -top-40 -left-32 h-[520px] w-[520px] rounded-full bg-secondary/40 blur-[120px] animate-float-slow"
-      />
-      <motion.div
-        style={{ x: useTransform(sx, (v) => -v), y: useTransform(sy, (v) => -v) }}
-        className="absolute top-1/3 -right-32 h-[460px] w-[460px] rounded-full bg-accent/30 blur-[120px] animate-float-slower"
-      />
-      <div className="absolute bottom-0 left-1/3 h-[380px] w-[380px] rounded-full bg-coffee/20 blur-[140px]" />
-
-      {/* Coffee bean particles */}
-      <BeanParticles />
-
-      <motion.div
-        style={{ y: textY, opacity: fade }}
-        className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 px-6 "
-      >
-        <div>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.1 }}
-            className="inline-flex items-center gap-2 rounded-full glass px-4 py-2 text-xs uppercase tracking-[0.2em] text-foreground/70"
-          >
-            <span className="h-1.5 w-1.5 rounded-full bg-primary animate-pulse" />
-            Focus West Java · Indonesia
-          </motion.div>
-
-          <h1 className="mt-8 max-w-5xl font-display text-[clamp(2.75rem,7vw,6.25rem)] leading-[0.95] tracking-tight text-balance">
-            <motion.span
-              initial={{ y: "110%" }}
-              animate={{ y: "0%" }}
-              transition={{ duration: 0.9, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="block overflow-hidden pb-2"
-            >
-              Premium Coffee Supply,
-            </motion.span>
-            <motion.span
-              initial={{ y: "110%" }}
-              animate={{ y: "0%" }}
-              transition={{ duration: 0.9, delay: 0.32, ease: [0.16, 1, 0.3, 1] }}
-              className="block min-h-[1.05em] overflow-hidden pb-2 italic text-primary"
-            >
-              <span>{typedText}</span>
-              <motion.span
-                aria-hidden="true"
-                animate={{ opacity: [0, 1, 1, 0] }}
-                transition={{ duration: 1, repeat: Infinity, ease: "linear" }}
-                className="ml-1 inline-block h-[0.78em] w-[0.04em] translate-y-[0.08em] bg-primary"
-              />
-            </motion.span>
-          </h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.75 }}
-            className="mt-7 max-w-xl text-lg leading-relaxed text-foreground/70"
-          >
-            Grind Roots provides Green Bean, Roasted Bean, and Grind Bean through a fully integrated
-            supply chain—from farm to premium coffee.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.9 }}
-            className="mt-10 flex flex-wrap items-center gap-4"
-          >
-            <a
-              href="#products"
-              className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-primary px-7 py-4 text-primary-foreground transition-transform hover:scale-[1.02]"
-            >
-              <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-primary via-secondary/50 to-primary transition-transform duration-700 group-hover:translate-x-0" />
-              <span className="relative z-10">Explore Products</span>
-              <span className="relative z-10 transition-transform group-hover:translate-x-1">
-                →
-              </span>
-            </a>
-            <a
-              href="#contact"
-              className="inline-flex items-center gap-3 rounded-full border border-foreground/20 bg-transparent px-7 py-4 text-foreground hover:bg-foreground hover:text-background transition-colors"
-            >
-              Contact Us
-            </a>
-          </motion.div>
-        </div>
-
-        {/* Hero image */}
-        {/* <motion.div
-          initial={{ opacity: 0, y: 60, scale: 0.96 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          transition={{ duration: 1.2, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          style={{ y: bgY }}
-          className="relative overflow-hidden rounded-[2rem] shadow-soft lg:min-h-[620px]"
-        >
-          <motion.img
-            src={heroImg}
-            alt="Coffee plantation in West Java"
-            width={1920}
-            height={1280}
-            style={{ scale: useTransform(scrollYProgress, [0, 1], [1, 1.15]) }}
-            className="h-[58vh] min-h-[420px] w-full object-cover lg:h-full lg:min-h-[620px]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-background/50 via-transparent to-transparent" />
-
-          <div className="absolute left-6 bottom-6 md:left-10 md:bottom-10 glass rounded-2xl p-5 max-w-xs">
-            <div className="text-xs uppercase tracking-widest text-foreground/60">Origin</div>
-            <div className="mt-1 font-display text-2xl">West Java Highlands</div>
-            <div className="mt-2 text-sm text-foreground/70">
-              1,200–1,700m altitude · Arabica & Robusta
-            </div>
-          </div>
-        </motion.div> */}
-      </motion.div>
-
-      {/* Scroll indicator */}
-      <motion.div
-        style={{ opacity: fade }}
-        className="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-xs uppercase tracking-widest text-foreground/50 lg:flex"
-      >
-        <span>Scroll</span>
-        <motion.span
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity }}
-          className="h-6 w-px bg-foreground/40"
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_18%,rgba(245,245,220,0.2),transparent_28%),linear-gradient(115deg,rgba(42,26,23,0.96)_0%,rgba(42,26,23,0.7)_46%,rgba(27,94,32,0.46)_100%)]" />
+        <LiquidEther
+          colors={["#3e2723", "#6d4c41", "#a1887f", "#d7ccc8", "#f5f5dc"]}
+          mouseForce={14}
+          cursorSize={90}
+          autoDemo={true}
+          autoSpeed={0.45}
+          autoIntensity={1.8}
+          resolution={0.3}
+          iterationsPoisson={20}
+          dt={0.016}
         />
+        {/* <img src={heroImg} alt={content.backgroundAlt} className="h-full w-full object-cover" /> */}
+      </motion.div>
+      <HeroAtmosphere />
+
+      <motion.div
+        variants={container}
+        initial="hidden"
+        animate="visible"
+        style={{ y: textY, opacity: textOpacity }}
+        className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl flex-col justify-center px-5 pb-20 pt-28 sm:px-6 sm:pb-24 sm:pt-32"
+      >
+        <motion.div
+          variants={reveal}
+          className="inline-flex w-fit items-center gap-3 rounded-full border border-background/15 bg-background/10 px-4 py-2 text-xs uppercase tracking-[0.22em] backdrop-blur-md"
+        >
+          <span className="h-2 w-2 rounded-full bg-secondary shadow-[0_0_20px_var(--secondary)]" />
+          {content.eyebrow}
+        </motion.div>
+
+        <motion.div
+          variants={reveal}
+          className="mt-8 overflow-hidden text-sm uppercase tracking-[0.35em] text-background/65 md:text-base"
+        >
+          We Move <RotatingWord />
+        </motion.div>
+
+        <motion.h1
+          variants={reveal}
+          className="mt-5 max-w-6xl font-display text-[clamp(3rem,16vw,9.5rem)] leading-[0.95] tracking-[-0.06em] text-balance sm:leading-[1] sm:tracking-[-0.07em]"
+        >
+          Building Smarter Coffee Supply Solutions
+        </motion.h1>
+
+        <motion.p
+          variants={reveal}
+          className="mt-8 max-w-2xl text-lg leading-relaxed text-background/72 md:text-xl"
+        >
+          {content.description}
+        </motion.p>
+
+        <motion.div
+          variants={reveal}
+          className="mt-12 grid max-w-4xl grid-cols-2 gap-3 sm:mt-8 md:grid-cols-4"
+        >
+          {kpis.map((stat, index) => (
+            <motion.div
+              key={stat.label}
+              whileHover={{ y: -6, scale: 1.02 }}
+              transition={{ duration: 0.25 }}
+              className="group rounded-2xl border border-background/12 bg-background/[0.075] p-4 backdrop-blur-md sm:rounded-3xl sm:p-5"
+            >
+              <div className="font-display text-3xl text-background sm:text-4xl md:text-5xl">
+                <Counter to={stat.value} suffix={stat.suffix} />
+              </div>
+              <div className="mt-2 text-[0.68rem] uppercase tracking-[0.14em] text-background/65 sm:text-xs sm:tracking-[0.18em]">
+                {stat.label}
+              </div>
+              <motion.div
+                className="mt-4 h-px origin-left bg-gradient-to-r from-background/70 to-transparent"
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ duration: 0.8, delay: 1 + index * 0.1 }}
+              />
+            </motion.div>
+          ))}
+        </motion.div>
       </motion.div>
     </section>
-  );
-}
-
-function BeanParticles() {
-  const beans = Array.from({ length: 32 });
-  return (
-    <div className="pointer-events-none absolute inset-0 overflow-hidden">
-      {beans.map((_, i) => {
-        const left = (i * 41) % 100;
-        const top = (i * 73) % 100;
-        const size = 8 + ((i * 7) % 14);
-        const delay = (i % 5) * 0.6;
-        return (
-          <motion.span
-            key={i}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: [0, 0.35, 0], y: [0, 60, 120] }}
-            transition={{ duration: 8 + (i % 4), delay, repeat: Infinity, ease: "easeInOut" }}
-            style={{ left: `${left}%`, top: `${top}%`, width: size, height: size * 1.4 }}
-            className="absolute rounded-full bg-primary rotate-45"
-          >
-            <span className="absolute inset-y-0 left-1/2 w-px -translate-x-1/2 bg-background" />
-          </motion.span>
-        );
-      })}
-    </div>
   );
 }

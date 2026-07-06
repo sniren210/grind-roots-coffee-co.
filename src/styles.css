@@ -76,7 +76,7 @@
   --footer: #2a1a17;
 }
 
-@media (min-width: 1200px) {
+/* @media (min-width: 1200px) {
   body {
     zoom: 80%;
   }
@@ -85,7 +85,7 @@
   body {
     zoom: 100%;
   }
-}
+} */
 
 @layer base {
   * {
@@ -199,4 +199,59 @@
 }
 .animate-float-slower {
   animation: float-slower 18s ease-in-out infinite;
+}
+
+@keyframes blueprint-pan {
+  0% {
+    background-position:
+      0 0,
+      0 0;
+  }
+  100% {
+    background-position:
+      72px 72px,
+      24px 24px;
+  }
+}
+
+@keyframes light-sweep {
+  0%,
+  100% {
+    transform: translateX(-45%) rotate(12deg);
+    opacity: 0.18;
+  }
+  50% {
+    transform: translateX(45%) rotate(12deg);
+    opacity: 0.42;
+  }
+}
+
+.hero-grid {
+  background-image:
+    linear-gradient(color-mix(in oklab, var(--background) 20%, transparent) 1px, transparent 1px),
+    linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--background) 20%, transparent) 1px,
+      transparent 1px
+    );
+  background-size:
+    72px 72px,
+    24px 24px;
+  -webkit-mask-image: radial-gradient(circle at 55% 45%, black, transparent 72%);
+  mask-image: radial-gradient(circle at 55% 45%, black, transparent 72%);
+  animation: blueprint-pan 22s linear infinite;
+}
+
+.hero-light-sweep::before {
+  content: "";
+  position: absolute;
+  inset: -35% 35%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in oklab, var(--background) 24%, transparent),
+    transparent
+  );
+  filter: blur(18px);
+  animation: light-sweep 10s ease-in-out infinite;
 }

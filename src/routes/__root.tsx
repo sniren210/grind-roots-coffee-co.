@@ -9,24 +9,25 @@ import {
 } from "@tanstack/react-router";
 import { useEffect, type ReactNode } from "react";
 
+import { siteContent } from "@/content";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+
+const { seo, system } = siteContent;
 
 function NotFoundComponent() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
-        </p>
+        <h1 className="text-7xl font-bold text-foreground">{system.notFound.code}</h1>
+        <h2 className="mt-4 text-xl font-semibold text-foreground">{system.notFound.title}</h2>
+        <p className="mt-2 text-sm text-muted-foreground">{system.notFound.description}</p>
         <div className="mt-6">
           <Link
             to="/"
             className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
-            Go home
+            {system.notFound.homeLabel}
           </Link>
         </div>
       </div>
@@ -45,11 +46,9 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
         <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
+          {system.error.title}
         </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try refreshing or head back home.
-        </p>
+        <p className="mt-2 text-sm text-muted-foreground">{system.error.description}</p>
         <div className="mt-6 flex flex-wrap justify-center gap-2">
           <button
             onClick={() => {
@@ -58,13 +57,13 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
             }}
             className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
-            Try again
+            {system.error.retryLabel}
           </button>
           <a
             href="/"
             className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
           >
-            Go home
+            {system.error.homeLabel}
           </a>
         </div>
       </div>
@@ -77,20 +76,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Grind Roots — Premium Coffee Supply from West Java" },
+      { title: seo.title },
       {
         name: "description",
-        content:
-          "Grind Roots supplies Green, Roasted and Grind coffee beans from West Java. Rooted in Quality. Crafted for Excellence.",
+        content: seo.description,
       },
-      { property: "og:title", content: "Grind Roots — From Farm to Exceptional Coffee" },
+      { property: "og:title", content: seo.openGraphTitle },
       {
         property: "og:description",
-        content:
-          "Integrated coffee supply chain from West Java: green, roasted and ground beans for roasters, cafés and private labels.",
+        content: seo.openGraphDescription,
       },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:type", content: seo.openGraphType },
+      { name: "twitter:card", content: seo.twitterCard },
     ],
     links: [
       { rel: "stylesheet", href: appCss },

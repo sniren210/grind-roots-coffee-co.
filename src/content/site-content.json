@@ -1,0 +1,319 @@
+{
+  "global": {
+    "brand": {
+      "name": "Grind Roots",
+      "logoLetter": "G",
+      "homeHref": "#home"
+    },
+    "nav": {
+      "menuAriaLabel": "Menu",
+      "links": [
+        { "href": "#home", "label": "Home" },
+        { "href": "#about", "label": "About" },
+        { "href": "#gallery", "label": "Gallery" },
+        { "href": "#supply", "label": "Supply Chain" },
+        { "href": "#products", "label": "Products" },
+        { "href": "#contact", "label": "Contact" }
+      ],
+      "cta": {
+        "href": "#contact",
+        "label": "Request Quote"
+      }
+    },
+    "whatsapp": {
+      "href": "https://wa.me/6281234567890",
+      "ariaLabel": "Chat on WhatsApp"
+    },
+    "footer": {
+      "tagline": "Rooted in Quality. Crafted for Excellence. From farm to exceptional coffee.",
+      "copyrightLocation": "West Java, Indonesia"
+    }
+  },
+  "seo": {
+    "title": "Grind Roots — Premium Coffee Supply from West Java",
+    "description": "Grind Roots supplies Green, Roasted and Grind coffee beans from West Java. Rooted in Quality. Crafted for Excellence.",
+    "openGraphTitle": "Grind Roots — From Farm to Exceptional Coffee",
+    "openGraphDescription": "Integrated coffee supply chain from West Java: green, roasted and ground beans for roasters, cafés and private labels.",
+    "openGraphType": "website",
+    "twitterCard": "summary_large_image"
+  },
+  "system": {
+    "notFound": {
+      "code": "404",
+      "title": "Page not found",
+      "description": "The page you're looking for doesn't exist or has been moved.",
+      "homeLabel": "Go home"
+    },
+    "error": {
+      "title": "This page didn't load",
+      "description": "Something went wrong on our end. You can try refreshing or head back home.",
+      "retryLabel": "Try again",
+      "homeLabel": "Go home"
+    }
+  },
+  "hero": {
+    "backgroundImage": "heroPlantation",
+    "backgroundAlt": "",
+    "eyebrow": "Focus West Java · Indonesia",
+    "headlineStatic": "Premium Coffee Supply,",
+    "typedPhrases": [
+      "Rooted in Quality.",
+      "Sourced from West Java.",
+      "Crafted from Farm to Cup."
+    ],
+    "description": "Grind Roots provides Green Bean, Roasted Bean, and Grind Bean through a fully integrated supply chain—from farm to premium coffee.",
+    "ctas": [
+      { "href": "#products", "label": "Explore Products", "variant": "primary" },
+      { "href": "#contact", "label": "Contact Us", "variant": "secondary" }
+    ],
+    "scrollLabel": "Scroll"
+  },
+  "about": {
+    "image": "aboutFarmer",
+    "imageAlt": "Farmer holding fresh coffee cherries",
+    "badge": {
+      "label": "Est.",
+      "value": "2018"
+    },
+    "eyebrow": "— Our Story",
+    "heading": {
+      "before": "From West Java soil to a ",
+      "emphasis": "world-class",
+      "after": " cup."
+    },
+    "description": "We're an integrated coffee supplier rooted in the highlands of West Java. We work directly with partner farmers, process at our workshop, store in climate-controlled warehouses, and deliver green, roasted, and ground beans—ready for your business.",
+    "stats": [
+      { "value": 120, "suffix": "+", "label": "Partner Farmers" },
+      { "value": 100, "suffix": "%", "label": "Quality Controlled" },
+      { "value": 8, "suffix": "T", "label": "Warehouse Ready" },
+      { "value": 15, "suffix": "+", "label": "Export Countries" }
+    ]
+  },
+  "gallery": {
+    "eyebrow": "— Gallery",
+    "heading": {
+      "before": "A closer look at ",
+      "emphasis": "the craft.",
+      "after": ""
+    },
+    "description": "Moments from the field, the workshop and the warehouse.",
+    "itemEyebrow": "Grind Roots",
+    "items": [
+      { "image": "heroPlantation", "label": "Plantation", "alt": "Plantation", "span": "large" },
+      { "image": "galleryHarvest", "label": "Harvest", "alt": "Harvest", "span": "default" },
+      { "image": "galleryWorkshop", "label": "Workshop", "alt": "Workshop", "span": "tall" },
+      { "image": "productGreen", "label": "Green Bean", "alt": "Green Bean", "span": "default" },
+      { "image": "galleryWarehouse", "label": "Warehouse", "alt": "Warehouse", "span": "wide" },
+      { "image": "galleryRoasting", "label": "Roasting", "alt": "Roasting", "span": "default" },
+      { "image": "galleryPackaging", "label": "Packaging", "alt": "Packaging", "span": "default" }
+    ]
+  },
+  "supplyChain": {
+    "eyebrow": "— Supply Chain",
+    "heading": {
+      "before": "Six stages. ",
+      "emphasis": "One promise.",
+      "after": ""
+    },
+    "description": "The story stays fixed while each stage moves through the chain, connecting origin, processing, storage, and finished coffee.",
+    "mobileHeading": {
+      "before": "Six steps. One integrated ",
+      "emphasis": "journey.",
+      "after": ""
+    },
+    "mobileDescription": "Every stage stays visible and traceable, from farm origin to export-ready coffee.",
+    "currentStageLabel": "Current stage",
+    "stageAriaPrefix": "Scroll to",
+    "stageAriaSuffix": "supply-chain stage",
+    "cta": {
+      "href": "#contact",
+      "label": "Request Quote"
+    },
+    "stages": [
+      {
+        "icon": "sprout",
+        "title": "Farm",
+        "label": "Origin",
+        "image": "heroPlantation",
+        "alt": "Farm stage of the Grind Roots supply chain",
+        "description": "Partner farms across the West Java highlands harvest ripe cherries at altitude for clean, traceable lots."
+      },
+      {
+        "icon": "wrench",
+        "title": "Workshop",
+        "label": "Processing",
+        "image": "galleryWorkshop",
+        "alt": "Workshop stage of the Grind Roots supply chain",
+        "description": "Cherries move into controlled processing, sorting, and quality checks before each batch is approved."
+      },
+      {
+        "icon": "warehouse",
+        "title": "Warehouse",
+        "label": "Storage",
+        "image": "galleryWarehouse",
+        "alt": "Warehouse stage of the Grind Roots supply chain",
+        "description": "Approved lots are stored in export-ready conditions with clear batch visibility and documentation."
+      },
+      {
+        "icon": "coffee",
+        "title": "Green Bean",
+        "label": "Export grade",
+        "image": "productGreen",
+        "alt": "Green Bean stage of the Grind Roots supply chain",
+        "description": "Grade 1 raw beans are prepared for roasters, distributors, and private-label coffee programs."
+      },
+      {
+        "icon": "flame",
+        "title": "Roasted Bean",
+        "label": "Profiled roast",
+        "image": "galleryRoasting",
+        "alt": "Roasted Bean stage of the Grind Roots supply chain",
+        "description": "Custom roast profiles bring each origin into the right expression for cafes, hotels, and brands."
+      },
+      {
+        "icon": "circleDot",
+        "title": "Grind Bean",
+        "label": "Ready to brew",
+        "image": "productGrind",
+        "alt": "Grind Bean stage of the Grind Roots supply chain",
+        "description": "Finished coffee is ground to spec, packed to order, and prepared for smooth fulfillment."
+      }
+    ]
+  },
+  "whyUs": {
+    "eyebrow": "— Why Grind Roots",
+    "heading": {
+      "before": "Built for buyers who won't ",
+      "emphasis": "compromise.",
+      "after": ""
+    },
+    "features": [
+      {
+        "icon": "leaf",
+        "title": "Farm-to-Business Supply",
+        "description": "Direct sourcing from West Java partner farms."
+      },
+      {
+        "icon": "shieldCheck",
+        "title": "Premium Quality Control",
+        "description": "Cupping, grading and defect check on every batch."
+      },
+      {
+        "icon": "handHeart",
+        "title": "Sustainable Partnerships",
+        "description": "Fair pricing and long-term farmer relationships."
+      },
+      {
+        "icon": "truck",
+        "title": "Reliable Distribution",
+        "description": "On-time export and domestic logistics."
+      },
+      {
+        "icon": "package",
+        "title": "Flexible Bulk Orders",
+        "description": "From 60kg jute sacks to full container loads."
+      },
+      {
+        "icon": "headphones",
+        "title": "Trusted Customer Service",
+        "description": "Direct WhatsApp support with your account lead."
+      }
+    ]
+  },
+  "products": {
+    "eyebrow": "— Products",
+    "heading": {
+      "before": "Three forms. One ",
+      "emphasis": "promise.",
+      "after": ""
+    },
+    "description": "Every bag is traceable, cupped and quality-scored before it leaves the warehouse.",
+    "cta": {
+      "href": "#contact",
+      "label": "Request Quote"
+    },
+    "items": [
+      {
+        "emoji": "🌱",
+        "name": "Green Bean",
+        "image": "productGreen",
+        "alt": "Green Bean",
+        "description": "Unroasted, export-grade beans sorted by size, density and defect count.",
+        "features": ["Grade 1 · Screen 16+", "Moisture ≤ 12%", "Bulk 60kg jute sacks"],
+        "origin": "Ciwidey · Pangalengan · Malabar",
+        "originBadge": "Ciwidey"
+      },
+      {
+        "emoji": "☕",
+        "name": "Roasted Bean",
+        "image": "productRoasted",
+        "alt": "Roasted Bean",
+        "description": "Small-batch roasted to your profile—light, medium or dark.",
+        "features": ["Custom roast profile", "Fresh within 7 days", "Whole bean packaging"],
+        "origin": "Roasted in-house · West Java",
+        "originBadge": "Roasted in-house"
+      },
+      {
+        "emoji": "🫘",
+        "name": "Grind Bean",
+        "image": "productGrind",
+        "alt": "Grind Bean",
+        "description": "Precisely ground for espresso, drip, moka or French press.",
+        "features": ["5 grind sizes", "Nitrogen-flushed pouches", "Private label ready"],
+        "origin": "Milled to order · West Java",
+        "originBadge": "Milled to order"
+      }
+    ]
+  },
+  "contact": {
+    "eyebrow": "— Contact",
+    "heading": {
+      "before": "Let's talk about your ",
+      "emphasis": "next order.",
+      "after": ""
+    },
+    "description": "Roasters, cafés, distributors and private-label brands—reach out for samples, MOQ and pricing.",
+    "rows": [
+      {
+        "icon": "messageCircle",
+        "label": "WhatsApp",
+        "value": "+62 812 3456 7890",
+        "href": "https://wa.me/6281234567890"
+      },
+      {
+        "icon": "mail",
+        "label": "Email",
+        "value": "hello@grindroots.co",
+        "href": "mailto:hello@grindroots.co"
+      },
+      {
+        "icon": "mapPin",
+        "label": "Address",
+        "value": "Bandung, West Java · Indonesia"
+      }
+    ],
+    "map": {
+      "title": "Grind Roots location",
+      "src": "https://www.google.com/maps?q=Bandung%20West%20Java&output=embed"
+    },
+    "form": {
+      "title": "Request a quote",
+      "subtitle": "We reply within one business day.",
+      "fields": [
+        { "label": "Full name", "name": "name", "type": "text" },
+        { "label": "Company", "name": "company", "type": "text" },
+        { "label": "Email", "name": "email", "type": "email" },
+        { "label": "Phone / WhatsApp", "name": "phone", "type": "text" },
+        {
+          "label": "Product interest",
+          "name": "product",
+          "type": "text",
+          "placeholder": "Green / Roasted / Grind, volume, origin…"
+        }
+      ],
+      "messageLabel": "Message",
+      "submitLabel": "Send request",
+      "successLabel": "Message sent ✓"
+    }
+  }
+}

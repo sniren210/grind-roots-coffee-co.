@@ -1,0 +1,28 @@
+name: grind-roots-coffee
+
+services:
+  # ─── Local Development ────────────────────────────────────────────────────
+  # Start: docker compose up dev
+  # Stop:  docker compose down
+  # View:  http://localhost:3001  (Vite dev server with hot reload)
+  dev:
+    image: node:22-slim
+    platform: linux/amd64
+    container_name: grind-roots-dev
+    working_dir: /app
+    ports:
+      - "3001:3001"
+    volumes:
+      - .:/app
+    environment:
+      NODE_ENV: development
+      ORIGIN: http://localhost:3001
+      PORT: "3001"
+    command: npm run dev
+    restart: unless-stopped
+    networks:
+      - grind-net
+
+networks:
+  grind-net:
+    driver: bridge

@@ -1,18 +1,15 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { siteContent } from "@/content";
 
-const links = [
-  { href: "#home", label: "Home" },
-  { href: "#about", label: "About" },
-  { href: "#gallery", label: "Gallery" },
-  { href: "#supply", label: "Supply Chain" },
-  { href: "#products", label: "Products" },
-  { href: "#contact", label: "Contact" },
-];
+const { brand, nav } = siteContent.global;
 
 export function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const navTextClass = scrolled || open ? "text-foreground" : "text-background";
+  const navMutedTextClass = scrolled || open ? "text-foreground/70" : "text-background/80";
+  const navHoverTextClass = scrolled || open ? "hover:text-foreground" : "hover:text-background";
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -36,44 +33,54 @@ export function Navbar() {
             scrolled ? "glass shadow-glass" : "bg-transparent"
           }`}
         >
-          <a href="#home" className="flex items-center gap-2 group">
-            <span className="grid h-9 w-9 place-items-center rounded-full bg-primary text-primary-foreground font-display text-lg">
-              G
+          <a href={brand.homeHref} className={`flex items-center gap-2 group ${navTextClass}`}>
+            <span
+              className={`grid h-9 w-9 place-items-center rounded-full font-display text-lg transition-colors ${
+                scrolled ? "bg-primary text-primary-foreground" : "bg-background text-footer"
+              }`}
+            >
+              {brand.logoLetter}
             </span>
-            <span className="font-display text-xl tracking-tight">Grind Roots</span>
+            <span className="font-display text-xl tracking-tight">{brand.name}</span>
           </a>
 
           <nav className="hidden md:flex items-center gap-1">
-            {links.map((l) => (
+            {nav.links.map((l) => (
               <a
                 key={l.href}
                 href={l.href}
-                className="relative px-4 py-2 text-sm text-foreground/70 hover:text-foreground transition-colors group"
+                className={`relative px-4 py-2 text-sm transition-colors group ${navMutedTextClass} ${navHoverTextClass}`}
               >
                 {l.label}
-                <span className="absolute inset-x-4 -bottom-0.5 h-px scale-x-0 group-hover:scale-x-100 origin-left bg-primary transition-transform duration-300" />
+                <span
+                  className={`absolute inset-x-4 -bottom-0.5 h-px scale-x-0 group-hover:scale-x-100 origin-left transition-transform duration-300 ${
+                    scrolled ? "bg-primary" : "bg-background"
+                  }`}
+                />
               </a>
             ))}
           </nav>
 
           <a
-            href="#contact"
+            href={nav.cta.href}
             className="hidden md:inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm text-primary-foreground hover:bg-primary/90 transition-all hover:gap-3"
           >
-            Request Quote →
+            {nav.cta.label} →
           </a>
 
           <button
             onClick={() => setOpen(!open)}
-            className="md:hidden grid h-10 w-10 place-items-center rounded-full glass"
-            aria-label="Menu"
+            className={`md:hidden grid h-10 w-10 place-items-center rounded-full transition-colors ${
+              scrolled || open ? "glass" : "bg-background/15 backdrop-blur-md"
+            }`}
+            aria-label={nav.menuAriaLabel}
           >
             <span className="relative block h-3 w-4">
               <span
-                className={`absolute inset-x-0 top-0 h-px bg-foreground transition-transform ${open ? "translate-y-1.5 rotate-45" : ""}`}
+                className={`absolute inset-x-0 top-0 h-px transition-transform ${navTextClass} ${open ? "translate-y-1.5 rotate-45" : ""}`}
               />
               <span
-                className={`absolute inset-x-0 bottom-0 h-px bg-foreground transition-transform ${open ? "-translate-y-1 -rotate-45" : ""}`}
+                className={`absolute inset-x-0 bottom-0 h-px transition-transform ${navTextClass} ${open ? "-translate-y-1 -rotate-45" : ""}`}
               />
             </span>
           </button>
@@ -83,9 +90,9 @@ export function Navbar() {
           <motion.div
             initial={{ opacity: 0, y: -8 }}
             animate={{ opacity: 1, y: 0 }}
-            className="md:hidden mt-3 glass rounded-3xl p-4 flex flex-col"
+            className="md:hidden mt-3 rounded-3xl border border-border bg-surface p-4 flex flex-col text-foreground shadow-glass"
           >
-            {links.map((l) => (
+            {nav.links.map((l) => (
               <a
                 key={l.href}
                 href={l.href}
