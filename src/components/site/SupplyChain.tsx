@@ -6,14 +6,10 @@ import {
   useTransform,
   useVelocity,
 } from "framer-motion";
-import { Coffee, Flame, CircleDot, Sprout, Warehouse, Wrench } from "lucide-react";
 import { useRef, useState } from "react";
-import plantation from "@/assets/hero-plantation.jpg";
-import workshop from "@/assets/gal-workshop.jpg";
-import warehouse from "@/assets/gal-warehouse.jpg";
-import green from "@/assets/product-green.jpg";
-import roasting from "@/assets/gal-roasting.jpg";
-import grind from "@/assets/product-grind.jpg";
+import { siteContent } from "@/content";
+import { getImage, getIcon } from "@/content/content-assets";
+import { renderEmphasisHeading } from "@/content/render-heading";
 
 import TiltedCard from "./TiltedCard";
 import BorderGlow from "./BorderGlow";
@@ -22,50 +18,12 @@ import "./TiltedCard.css";
 import "./BorderGlow.css";
 import "./SpotlightCard.css";
 
-const steps = [
-  {
-    icon: Sprout,
-    title: "Farm",
-    label: "Origin",
-    img: plantation,
-    desc: "Partner farms across the West Java highlands harvest ripe cherries at altitude for clean, traceable lots.",
-  },
-  {
-    icon: Wrench,
-    title: "Workshop",
-    label: "Processing",
-    img: workshop,
-    desc: "Cherries move into controlled processing, sorting, and quality checks before each batch is approved.",
-  },
-  {
-    icon: Warehouse,
-    title: "Warehouse",
-    label: "Storage",
-    img: warehouse,
-    desc: "Approved lots are stored in export-ready conditions with clear batch visibility and documentation.",
-  },
-  {
-    icon: Coffee,
-    title: "Green Bean",
-    label: "Export grade",
-    img: green,
-    desc: "Grade 1 raw beans are prepared for roasters, distributors, and private-label coffee programs.",
-  },
-  {
-    icon: Flame,
-    title: "Roasted Bean",
-    label: "Profiled roast",
-    img: roasting,
-    desc: "Custom roast profiles bring each origin into the right expression for cafes, hotels, and brands.",
-  },
-  {
-    icon: CircleDot,
-    title: "Grind Bean",
-    label: "Ready to brew",
-    img: grind,
-    desc: "Finished coffee is ground to spec, packed to order, and prepared for smooth fulfillment.",
-  },
-];
+const content = siteContent.supplyChain;
+const stages = content.stages.map((s) => ({
+  ...s,
+  Icon: getIcon(s.icon),
+  img: getImage(s.image),
+}));
 
 // ─── Tilted Poster Wall ─────────────────────────────────────────────────────
 const POSTER_WIDTH = 260;
@@ -78,8 +36,8 @@ function PosterWall() {
   const [isDragging, setIsDragging] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
 
-  const loopWidth = steps.length * (POSTER_WIDTH + POSTER_GAP);
-  const loopedSteps = [...steps, ...steps];
+  const loopWidth = stages.length * (POSTER_WIDTH + POSTER_GAP);
+  const loopedSteps = [...stages, ...stages];
 
   const skew = useTransform(velocity, [-1800, 0, 1800], [10, 0, -10], { clamp: true });
   const tilt = useTransform(velocity, [-1800, 0, 1800], [-6, 0, 6], { clamp: true });
@@ -125,7 +83,7 @@ function PosterWall() {
         }}
       >
         {loopedSteps.map((step, index) => {
-          const Icon = step.icon;
+          const Icon = step.Icon;
           return (
             <div
               key={`${step.title}-${index}`}
@@ -149,7 +107,7 @@ function PosterWall() {
               </div>
               <div className="absolute bottom-3 left-3 right-3 z-10">
                 <div className="text-xs uppercase tracking-[0.16em] text-background/60">
-                  {String((index % steps.length) + 1).padStart(2, "0")} · {step.label}
+                  {String((index % stages.length) + 1).padStart(2, "0")} · {step.label}
                 </div>
                 <div className="mt-1 font-display text-xl text-background/85">{step.title}</div>
               </div>
@@ -162,8 +120,8 @@ function PosterWall() {
 }
 
 // ─── Stage Card ──────────────────────────────────────────────────────────────
-function StageCard({ step, index }: { step: (typeof steps)[number]; index: number }) {
-  const Icon = step.icon;
+function StageCard({ step, index }: { step: (typeof stages)[number]; index: number }) {
+  const Icon = step.Icon;
   const flipped = index % 2 === 1;
 
   const imageFrom = flipped ? 90 : -90;
@@ -236,7 +194,7 @@ function StageCard({ step, index }: { step: (typeof steps)[number]; index: numbe
           {step.title}
         </h3>
 
-        <p className="mt-5 max-w-md leading-relaxed text-foreground/70">{step.desc}</p>
+        <p className="mt-5 max-w-md leading-relaxed text-foreground/70">{step.description}</p>
       </motion.div>
     </motion.div>
   );
@@ -277,14 +235,13 @@ export function SupplyChain() {
           className="mx-auto max-w-2xl text-center"
         >
           <div className="mb-6 text-xs uppercase tracking-[0.25em] text-primary">
-            — Supply Chain
+            {content.eyebrow}
           </div>
           <h2 className="font-display text-[clamp(2.6rem,5vw,5rem)] leading-[1.02] text-balance">
-            Six stages. <em className="italic text-primary">One promise.</em>
+            {renderEmphasisHeading(content.heading)}
           </h2>
           <p className="mt-5 text-lg leading-relaxed text-foreground/70">
-            Every stage stays visible and traceable, connecting origin, processing, storage, and
-            finished coffee.
+            {content.description}
           </p>
         </motion.div>
 
@@ -311,7 +268,7 @@ export function SupplyChain() {
           />
 
           <div className="flex flex-col gap-20 md:gap-28">
-            {steps.map((step, index) => (
+            {stages.map((step, index) => (
               <StageCard key={step.title} step={step} index={index} />
             ))}
           </div>
@@ -326,11 +283,11 @@ export function SupplyChain() {
           className="my-20 flex justify-center"
         >
           <a
-            href="#contact"
+            href={content.cta.href}
             className="group relative inline-flex items-center gap-3 overflow-hidden rounded-full bg-primary px-7 py-4 text-primary-foreground transition-transform hover:scale-[1.02]"
           >
             <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-primary via-secondary/50 to-primary transition-transform duration-700 group-hover:translate-x-0" />
-            <span className="relative z-10">Request Quote</span>
+            <span className="relative z-10">{content.cta.label}</span>
             <span className="relative z-10 transition-transform group-hover:translate-x-1">→</span>
           </a>
         </motion.div>

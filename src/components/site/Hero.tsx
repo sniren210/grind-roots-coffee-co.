@@ -15,8 +15,7 @@ import LiquidEther from "./LiquidEther";
 
 const content = siteContent.hero;
 const aboutContent = siteContent.about;
-const heroImg = getImage(content.backgroundImage);
-const storyWords = ["Origin", "Processing", "Warehousing", "Roasting", "Fulfillment"];
+const storyWords = content.typedPhrases;
 const kpis = aboutContent.stats.slice(0, 4);
 
 const container = {
@@ -157,13 +156,13 @@ export function Hero() {
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_72%_18%,rgba(245,245,220,0.2),transparent_28%),linear-gradient(115deg,rgba(42,26,23,0.96)_0%,rgba(42,26,23,0.7)_46%,rgba(27,94,32,0.46)_100%)]" />
         <LiquidEther
           colors={["#3e2723", "#6d4c41", "#a1887f", "#d7ccc8", "#f5f5dc"]}
-          mouseForce={14}
-          cursorSize={90}
+          mouseForce={8}
+          cursorSize={50}
           autoDemo={true}
-          autoSpeed={0.45}
-          autoIntensity={1.8}
-          resolution={0.3}
-          iterationsPoisson={20}
+          autoSpeed={0.25}
+          autoIntensity={0.8}
+          resolution={0.2}
+          iterationsPoisson={12}
           dt={0.016}
         />
         {/* <img src={heroImg} alt={content.backgroundAlt} className="h-full w-full object-cover" /> */}
@@ -189,14 +188,14 @@ export function Hero() {
           variants={reveal}
           className="mt-8 overflow-hidden text-sm uppercase tracking-[0.35em] text-background/65 md:text-base"
         >
-          We Move <RotatingWord />
+          <RotatingWord />
         </motion.div>
 
         <motion.h1
           variants={reveal}
           className="mt-5 max-w-6xl font-display text-[clamp(3rem,16vw,9.5rem)] leading-[0.95] tracking-[-0.06em] text-balance sm:leading-[1] sm:tracking-[-0.07em]"
         >
-          Building Smarter Coffee Supply Solutions
+          {content.headlineStatic} <RotatingWord />
         </motion.h1>
 
         <motion.p
@@ -205,6 +204,31 @@ export function Hero() {
         >
           {content.description}
         </motion.p>
+
+        <motion.div
+          variants={reveal}
+          className="mt-10 flex flex-wrap items-center gap-4"
+        >
+          {content.ctas.map((cta) =>
+            cta.variant === "primary" ? (
+              <a
+                key={cta.href}
+                href={cta.href}
+                className="inline-flex items-center gap-2 rounded-full bg-primary px-7 py-3.5 text-sm text-primary-foreground hover:bg-primary/90 transition-all hover:gap-3"
+              >
+                {cta.label} →
+              </a>
+            ) : (
+              <a
+                key={cta.href}
+                href={cta.href}
+                className="inline-flex items-center gap-2 rounded-full border border-background/30 bg-background/10 px-7 py-3.5 text-sm text-background backdrop-blur-sm hover:border-background/60 transition-all"
+              >
+                {cta.label}
+              </a>
+            ),
+          )}
+        </motion.div>
 
         <motion.div
           variants={reveal}
@@ -231,6 +255,18 @@ export function Hero() {
               />
             </motion.div>
           ))}
+        </motion.div>
+
+        <motion.div
+          variants={reveal}
+          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-background/40"
+        >
+          <span className="text-xs uppercase tracking-[0.25em]">{content.scrollLabel}</span>
+          <motion.div
+            animate={{ y: [0, 6, 0] }}
+            transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
+            className="h-8 w-px bg-gradient-to-b from-background/40 to-transparent"
+          />
         </motion.div>
       </motion.div>
     </section>

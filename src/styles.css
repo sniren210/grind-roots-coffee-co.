@@ -76,7 +76,7 @@
   --footer: #2a1a17;
 }
 
-/* @media (min-width: 1200px) {
+@media (min-width: 1200px) {
   body {
     zoom: 80%;
   }
@@ -85,7 +85,7 @@
   body {
     zoom: 100%;
   }
-} */
+}
 
 @layer base {
   * {
