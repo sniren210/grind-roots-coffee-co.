@@ -164,6 +164,7 @@ export function Hero() {
           resolution={0.2}
           iterationsPoisson={12}
           dt={0.016}
+          className="hidden lg:block"
         />
         {/* <img src={heroImg} alt={content.backgroundAlt} className="h-full w-full object-cover" /> */}
       </motion.div>
@@ -176,26 +177,21 @@ export function Hero() {
         style={{ y: textY, opacity: textOpacity }}
         className="relative z-10 mx-auto flex min-h-[100svh] max-w-7xl flex-col justify-center px-5 pb-20 pt-28 sm:px-6 sm:pb-24 sm:pt-32"
       >
-        <motion.div
-          variants={reveal}
-          className="inline-flex w-fit items-center gap-3 rounded-full border border-background/15 bg-background/10 px-4 py-2 text-xs uppercase tracking-[0.22em] backdrop-blur-md"
-        >
-          <span className="h-2 w-2 rounded-full bg-secondary shadow-[0_0_20px_var(--secondary)]" />
-          {content.eyebrow}
-        </motion.div>
-
-        <motion.div
-          variants={reveal}
-          className="mt-8 overflow-hidden text-sm uppercase tracking-[0.35em] text-background/65 md:text-base"
-        >
-          <RotatingWord />
-        </motion.div>
+        <div className="flex justify-start items-center w-full">
+          <motion.div
+            variants={reveal}
+            className="inline-flex w-fit items-center gap-3 rounded-full border border-background/15 bg-background/10 px-4 py-2 text-xs uppercase tracking-[0.22em] backdrop-blur-md"
+          >
+            <span className="h-2 w-2 rounded-full bg-secondary shadow-[0_0_20px_var(--secondary)]" />
+            {content.eyebrow}
+          </motion.div>
+        </div>
 
         <motion.h1
           variants={reveal}
           className="mt-5 max-w-6xl font-display text-[clamp(3rem,16vw,9.5rem)] leading-[0.95] tracking-[-0.06em] text-balance sm:leading-[1] sm:tracking-[-0.07em]"
         >
-          {content.headlineStatic} <RotatingWord />
+          {content.headlineStatic}
         </motion.h1>
 
         <motion.p
@@ -205,7 +201,7 @@ export function Hero() {
           {content.description}
         </motion.p>
 
-        <motion.div
+        {/* <motion.div
           variants={reveal}
           className="mt-10 flex flex-wrap items-center gap-4"
         >
@@ -228,7 +224,7 @@ export function Hero() {
               </a>
             ),
           )}
-        </motion.div>
+        </motion.div> */}
 
         <motion.div
           variants={reveal}
@@ -259,7 +255,7 @@ export function Hero() {
 
         <motion.div
           variants={reveal}
-          className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-background/40"
+          className="absolute bottom-5 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-background/40"
         >
           <span className="text-xs uppercase tracking-[0.25em]">{content.scrollLabel}</span>
           <motion.div

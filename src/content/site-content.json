@@ -55,12 +55,8 @@
     "backgroundImage": "heroPlantation",
     "backgroundAlt": "",
     "eyebrow": "Focus West Java · Indonesia",
-    "headlineStatic": "Premium Coffee Supply,",
-    "typedPhrases": [
-      "Rooted in Quality.",
-      "Sourced from West Java.",
-      "Crafted from Farm to Cup."
-    ],
+    "headlineStatic": "Premium Coffee Supply",
+    "typedPhrases": ["Rooted in Quality.", "Sourced from West Java.", "Crafted from Farm to Cup."],
     "description": "Grind Roots provides Green Bean, Roasted Bean, and Grind Bean through a fully integrated supply chain—from farm to premium coffee.",
     "ctas": [
       { "href": "#products", "label": "Explore Products", "variant": "primary" },

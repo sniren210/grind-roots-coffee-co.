@@ -33,7 +33,10 @@ export function Navbar() {
             scrolled ? "glass shadow-glass" : "bg-transparent"
           }`}
         >
-          <a href={brand.homeHref} className={`flex items-center gap-2 group ${navTextClass}`}>
+          <a
+            href={brand.homeHref}
+            className={`flex items-center gap-2 group text-background lg:${navTextClass}`}
+          >
             <span
               className={`grid h-9 w-9 place-items-center rounded-full font-display text-lg transition-colors ${
                 scrolled ? "bg-primary text-primary-foreground" : "bg-background text-footer"
@@ -63,24 +66,30 @@ export function Navbar() {
 
           <a
             href={nav.cta.href}
-            className="hidden md:inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2.5 text-sm text-primary-foreground hover:bg-primary/90 transition-all hover:gap-3"
+            className={`hidden md:inline-flex items-center gap-2 rounded-full  px-5 py-2.5 text-sm  hover:bg-primary/90 transition-all hover:gap-3 ${
+              scrolled ? "bg-primary text-primary-foreground" : "bg-background text-footer"
+            }`}
           >
             {nav.cta.label} →
           </a>
 
           <button
             onClick={() => setOpen(!open)}
-            className={`md:hidden grid h-10 w-10 place-items-center rounded-full transition-colors ${
-              scrolled || open ? "glass" : "bg-background/15 backdrop-blur-md"
+            className={`md:hidden grid h-10 w-10 place-items-center rounded-full transition-all duration-300 ${
+              scrolled || open ? "glass shadow-glass" : "bg-background/15 backdrop-blur-md"
             }`}
             aria-label={nav.menuAriaLabel}
           >
-            <span className="relative block h-3 w-4">
+            <span className={`relative block h-3 w-4 ${navTextClass}`}>
               <span
-                className={`absolute inset-x-0 top-0 h-px transition-transform ${navTextClass} ${open ? "translate-y-1.5 rotate-45" : ""}`}
+                className={`absolute inset-x-0 top-0 h-px transition-all duration-300 bg-background ${
+                  open ? "translate-y-[6px] rotate-45" : ""
+                }`}
               />
               <span
-                className={`absolute inset-x-0 bottom-0 h-px transition-transform ${navTextClass} ${open ? "-translate-y-1 -rotate-45" : ""}`}
+                className={`absolute inset-x-0 bottom-0 h-px transition-all duration-300 bg-background ${
+                  open ? "-translate-y-[6px] -rotate-45" : ""
+                }`}
               />
             </span>
           </button>
